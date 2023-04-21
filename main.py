@@ -11,11 +11,13 @@ filepath = "sample_submission.csv"
 filepath1 = "0-24(saat).csv"
 filepath2 = "1-7(haftalık).csv"
 filepath3 = "1-30(Gun).csv"
+filepath4 = "sonuc.csv"
 
 df = pd.read_csv(filepath)
 saatlik = pd.read_csv(filepath1)
 haftalik = pd.read_csv(filepath2)
 aylik = pd.read_csv(filepath3)
+sonuc = pd.read_csv(filepath4)
 
 df['Tarih'] = pd.to_datetime(df['Tarih'])
 
@@ -60,6 +62,10 @@ for i in range(744):
 
     result = total/5
 
+    sonuc.at[i, 'Dağıtılan Enerji (MWh)'] = result
+
+    sonuc.to_csv("sonuc.csv",index=False)
+    
     print(result)
 
     i = i+1
