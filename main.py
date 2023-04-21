@@ -1,5 +1,10 @@
 import pandas as pd
 import datetime
+import subprocess
+
+
+
+
 
 AVG_YEAR = 1845.3666195685175
 
@@ -57,10 +62,14 @@ for i in range(744):
     #print(haftalik_gun_degeri)
     #print("***********************************")
 
-    total = aylik.iloc[gun-1]['Dağıtılan Enerji (MWh)']+saatlik.iloc[saat]['Dağıtılan Enerji (MWh)']+haftalik_gun_degeri
-    total = total + AVG_YEAR + MONTH_8_AVG
+    total = aylik.iloc[gun-1]['Dağıtılan Enerji (MWh)']  +\
+        saatlik.iloc[saat]['Dağıtılan Enerji (MWh)']*95 +\
+        haftalik_gun_degeri*25 +\
+        AVG_YEAR*2 +\
+        MONTH_8_AVG
 
-    result = total/5
+
+    result = total/100
 
     sonuc.at[i, 'Dağıtılan Enerji (MWh)'] = result
 
@@ -69,4 +78,8 @@ for i in range(744):
     print(result)
 
     i = i+1
+print("-------------------------------------")
+subprocess.run(["python", "optimizasyon.py"])
+print("-------------------------------------")
 
+#8,427 ------- 1 95 25 2 1
